@@ -19,12 +19,13 @@ import TextField from 'material-ui/TextField'
 
   render() {
     return (
-      <form ref={ (input) => this.fishForm = input } className="fish-edit" onSubmit={ (e) => this.createMessage(e, this.props.userId) }>
+      <form ref={ (input) => this.fishForm = input } className="message-form" onSubmit={ (e) => this.createMessage(e, this.props.userId) }>
         <TextField
           ref={ (input) => this.content = input }
           floatingLabelText="Enter your message"
           multiLine={true}
           rows={2}
+          className="content-field"
         />
 
         <RaisedButton label="Send" primary={true} type="submit" />
