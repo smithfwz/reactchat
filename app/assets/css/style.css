@@ -99,3 +99,10 @@ body {
   width: calc(100% - 118px) !important;
   margin-right: 20px;
 }
+
+ul.users {
+  padding: 0;
+  margin: 0;
+  width: 24%;
+  float: left;
+}
