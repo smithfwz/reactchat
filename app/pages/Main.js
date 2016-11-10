@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import LoginForm from '../components/LoginForm'
+import { observer } from 'mobx-react'
 
-class Main extends Component {
+@observer class Main extends Component {
   render() {
     return (
       <div className="Main">
         <div className="Main-header">
           <h2>Welcome to React</h2>
         </div>
-        <p className="Main-intro">
-          To get started, edit <code>src/Main.js</code> and save to reload.
-        </p>
+        <LoginForm />
       </div>
     );
   }
