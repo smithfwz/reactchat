@@ -17,6 +17,14 @@ class UserStore {
     
     return users[`user-${ userId }`]
   }
+
+  loadFriends(userId) {
+    const users = { ...this.users }
+
+    delete users[`user-${ userId }`]
+
+    return users
+  }
 }
 
 const userStore = new UserStore()
