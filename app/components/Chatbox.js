@@ -17,6 +17,7 @@ import Message from './Message'
             manageMessages.messages &&
             Object
               .keys(manageMessages.messages)
+              .reverse()
               .map( key => <Message 
                             key={ key } 
                             index={ key }
