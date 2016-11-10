@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 import firebase from 'firebase/app'
-import { auth } from '../config/database'
+import { auth, database } from '../config/database'
 
 @observer class LoginForm extends React.Component {
   @observable uid = null
@@ -16,18 +16,29 @@ import { auth } from '../config/database'
     })
   }
   
-  logout() {
-    auth.signOut()
-    this.uid = null
-  }
-
   authenticate(provider) {
     auth.signInWithPopup(provider).then((authData) => this.authHandler(authData))
   }
 
   authHandler(authData) {
-    this.uid = authData.uid || authData.user.uid
-    this.owner = authData.uid || authData.user.uid
+    const userId = authData.uid || authData.user.uid
+    const userRef = database.ref(`users/user-${ userId }`)
+
+    userRef.once('value', (snapshot) => {
+      const data = snapshot.val() || {}
+
+      if (!data.owner) {
+        userRef.set({
+          owner: authData.user.uid,
+          email: authData.user.email,
+          name: authData.user.displayName,
+          photoURL: authData.user.photoURL
+        })
+      }
+
+      this.uid = authData.user.uid
+      this.owner = data.owner || authData.user.uid
+    })
   }
 
   renderLogin() {
